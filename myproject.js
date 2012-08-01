@@ -101,22 +101,11 @@
                 category: 'taskboard',
                 menuItem: 'Bobbel colors',
                 onActivate: function () {
-                    $('.story').each(function () {
-                        if (/#tlb/.test($(this).find('.subject').text())) {
-                            $(this).parent().parent().addClass('team-left-bobbel');
-                        } else if (/#trb/.test($(this).find('.subject').text())) {
-                            $(this).parent().parent().addClass('team-right-bobbel');
-                        } else if (/#tmb/.test($(this).find('.subject').text())) {
-                            $(this).parent().parent().addClass('team-middle-bobbel');
-                        }
-                    });
+                    MP.helper.addStoryClasses();
+                    $('body').addClass(this.id);
                 },
                 onDeactivate: function () {
-                    $('.story').each(function () {
-                        $(this).parent().parent().removeClass('team-left-bobbel');
-                        $(this).parent().parent().removeClass('team-right-bobbel');
-                        $(this).parent().parent().removeClass('team-middle-bobbel');
-                    });
+                    $('body').removeClass(this.id);
                 }
             });
 
@@ -138,9 +127,9 @@
             modules.push({
                 id: 'hide-right-bobbel',
                 category: 'taskboard',
-                dependencies: ['team-bobbel-colors'],
                 menuItem: 'Hide right bobbel stories',
                 onActivate: function () {
+                    MP.helper.addStoryClasses();
                     $('body').addClass(this.id);
                 },
                 onDeactivate: function () {
@@ -152,9 +141,9 @@
             modules.push({
                 id: 'hide-middle-bobbel',
                 category: 'taskboard',
-                dependencies: ['team-bobbel-colors'],
                 menuItem: 'Hide middle bobbel stories',
                 onActivate: function () {
+                    MP.helper.addStoryClasses();
                     $('body').addClass(this.id);
                 },
                 onDeactivate: function () {
@@ -166,9 +155,9 @@
             modules.push({
                 id: 'hide-no-bobbel',
                 category: 'taskboard',
-                dependencies: ['team-bobbel-colors'],
                 menuItem: 'Hide non-bobbel stories',
                 onActivate: function () {
+                    MP.helper.addStoryClasses();
                     $('body').addClass(this.id);
                 },
                 onDeactivate: function () {
@@ -354,6 +343,20 @@
                     }
                 }
                 return '';
+            },
+            addStoryClasses: function () {
+                if (!this.addedStoryClasses) {
+                    this.addedStoryClasses = true;
+                    $('.story').each(function () {
+                        if (/#tlb/.test($(this).find('.subject').text())) {
+                            $(this).parent().parent().addClass('team-left-bobbel');
+                        } else if (/#trb/.test($(this).find('.subject').text())) {
+                            $(this).parent().parent().addClass('team-right-bobbel');
+                        } else if (/#tmb/.test($(this).find('.subject').text())) {
+                            $(this).parent().parent().addClass('team-middle-bobbel');
+                        }
+                    });
+                }
             }
         }
 

@@ -48,22 +48,22 @@
 }
 
 /* Story bobbel color time */
-#taskboard .team-left-bobbel {
+.team-bobbel-colors #taskboard .team-left-bobbel {
     background-color: rgba(247,150,70,0.1) !important;
 }
-#taskboard .team-left-bobbel .story {
+.team-bobbel-colors #taskboard .team-left-bobbel .story {
     background-color: rgb(247,150,70) !important;
 }
-#taskboard .team-right-bobbel {
+.team-bobbel-colors #taskboard .team-right-bobbel {
     background-color: rgba(75,172,198,0.1) !important;
 }
-#taskboard .team-right-bobbel .story {
+.team-bobbel-colors #taskboard .team-right-bobbel .story {
     background-color: rgb(75,172,198) !important;
 }
-#taskboard .team-middle-bobbel {
+.team-bobbel-colors #taskboard .team-middle-bobbel {
     background-color: rgba(142,180,227,0.1) !important;
 }
-#taskboard .team-middle-bobbel .story {
+.team-bobbel-colors #taskboard .team-middle-bobbel .story {
     background-color: rgb(142,180,227) !important;
 }
 
