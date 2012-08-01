@@ -1,0 +1,138 @@
+/* Hide closed stories */
+.hide-closed-stories #taskboard [class^=story_].closed,
+/* Hide closed tasks */
+.hide-closed-tasks #taskboard .task.closed,
+.hide-closed-tasks #taskboard .impediment.closed {
+    display: none !important;
+}
+
+/* Hide impediments */
+.hide-impediments table#impediments { display: none !important; }
+
+/* Restrict "Story" column to one issue per row */
+.narrow-story #taskboard .board td:first-child {
+    max-width: 115px !important;
+    width: 115px !important;
+    min-width: 115px !important;
+}
+.narrow-story #taskboard .story, #rb .label_sprint_impediments {
+    max-width: 95px !important;
+    width: 95px !important;
+}
+.narrow-story #taskboard .story .story-bar {
+    max-width: 92px !important;
+    width: 92px !important;
+}
+.narrow-story #taskboard .story .subject {
+    max-width: 91px !important;
+    width: 91px !important;
+}
+.narrow-story #taskboard #board_header td:first-child {
+    max-width: 136px !important;
+    width: 136px !important;
+    min-width: 136px !important;
+}
+
+/* Restrict "On Hold" column to one issue per row */
+.narrow-on-hold #taskboard table:not(#board_header) .swimlane:nth-child(5),
+.narrow-on-hold #taskboard #board_header .swimlane:nth-child(4),
+/* Restrict "Rejected" column to one issue per row */
+.narrow-rejected #taskboard table:not(#board_header) .swimlane:nth-child(7),
+.narrow-rejected #taskboard #board_header .swimlane:nth-child(6),
+/* Restrict "Closed" column  to one issue per row */
+.narrow-closed #taskboard table:not(#board_header) .swimlane:nth-child(8),
+.narrow-closed #taskboard #board_header .swimlane:nth-child(7) {
+    max-width: 105px !important;
+    width: 105px !important;
+    min-width: 105px !important;
+}
+
+/* Story bobbel color time */
+#taskboard .team-left-bobbel {
+    background-color: rgba(247,150,70,0.1) !important;
+}
+#taskboard .team-left-bobbel .story {
+    background-color: rgb(247,150,70) !important;
+}
+#taskboard .team-right-bobbel {
+    background-color: rgba(75,172,198,0.1) !important;
+}
+#taskboard .team-right-bobbel .story {
+    background-color: rgb(75,172,198) !important;
+}
+#taskboard .team-middle-bobbel {
+    background-color: rgba(142,180,227,0.1) !important;
+}
+#taskboard .team-middle-bobbel .story {
+    background-color: rgb(142,180,227) !important;
+}
+
+/* Hide specific team stories */
+.hide-left-bobbel #taskboard .team-left-bobbel,
+.hide-right-bobbel #taskboard .team-right-bobbel,
+.hide-middle-bobbel #taskboard .team-middle-bobbel,
+.hide-no-bobbel #taskboard #tasks tr:not(.team-left-bobbel):not(.team-right-bobbel):not(.team-middle-bobbel) {
+    display: none !important;
+}
+/* Review reminders */
+.show-review-reminder #taskboard .swimlane[id$=_3] .task .assigned_to_id .t:after {
+    color: red !important;
+    font-weight: bold;
+    content: 'REVIEW ME!';
+    height: 12px;
+}
+
+/* Wide table */
+.wide-table #taskboard table {
+    table-layout: fixed;
+    width: 100% !important;
+}
+
+/* Readable issues */
+.readable-issues #taskboard .issue,
+.readable-issues #taskboard .story {
+  color: black !important;
+  outline: 1px solid rgba(0, 0, 0, .3)  !important;
+}
+.readable-issues #taskboard .issue .id,
+.readable-issues #taskboard .story .story-bar {
+	opacity: 1 !important;
+}
+.readable-issues #taskboard .story .story-bar .status {
+    margin: 2px 0 -2px 2px;
+}
+.readable-issues #taskboard .issue div.subject,
+.readable-issues #taskboard .story div.subject {
+    background: rgba(255, 255, 255, .8) !important;
+}
+.readable-issues #taskboard .issue div.assigned_to_id,
+.readable-issues #taskboard .story div.assigned_to_id {
+    margin-top: 0px;
+    background: rgb(255, 255, 255) !important;
+}
+
+.readable-issues #taskboard .issue div.assigned_to_id .t,
+.readable-issues #taskboard .story div.assigned_to_id .t {
+    white-space: pre;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: 1px;
+}
+
+/* Clone header */
+.clone-header {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+}
+
+
+.sb-settings-menu {
+    background-color: #eeeeee;
+    display: block;
+    margin: 0 0 10px 10px;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 10px;
+}
+
