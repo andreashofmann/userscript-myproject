@@ -270,8 +270,38 @@
                 }
             });
 
-            this.modules = modules;
+            // Auto-assign
+            modules.push({
+                id: 'auto-assign',
+                category: 'taskboard',
+                menuItem: '(Un-)Assign automatically',
+                onActivate: function () {
+                    RB.Task.origSaveDirectives = RB.Task.saveDirectives;
+                    RB.Task.saveDirectives = function () {
+                        var column = this.$.parent('td').first().attr('id').split("_")[1],
+                            unassignColumns = ['14'/*new*/, '3'/*resolved*/, '6'/*rejected*/],
+                            assignColumns = ['2'/*progress*/],
+                            result = this.origSaveDirectives();
 
+                        if (result.data.indexOf('assigned_to_id') === -1) {
+                            if (assignColumns.indexOf(column) !== -1) {
+                                result.data += '&assigned_to_id=' + MP.helper.getUserId();
+                                this.$.css('background-color', MP.helper.getUserColor());
+                            } else if (unassignColumns.indexOf(column) !== -1) {
+                                result.data += '&assigned_to_id=';
+                                this.$.css('background-color', '');
+                            }
+                        }
+
+                        return result;
+                    }
+                },
+                onDeactivate: function () {
+                    RB.Task.saveDirectives = RB.Task.origSaveDirectives;
+                }
+            });
+
+            this.modules = modules;
         },
 
         loadSettings: function () {
@@ -357,6 +387,14 @@
                         }
                     });
                 }
+            },
+            getUserId: function () {
+                this.userId = this.userId || $('[href*="/pi/users"]').attr('href').split('/')[3];
+                return this.userId;
+            },
+            getUserColor: function () {
+                this.userColor = this.userColor || $('.template [value="' + this.getUserId() + '"]').attr('color');
+                return this.userColor;
             }
         }
 
