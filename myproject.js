@@ -21,7 +21,7 @@
             // Hide closed tasks
             modules.push({
                 id: 'hide-closed-tasks',
-                category: 'taskboard',
+                filter: 'taskboard',
                 menuItem: 'Hide closed tasks',
                 onActivate: function () {
                     $('body').addClass(this.id);
@@ -34,7 +34,7 @@
             // Hide closed stories
             modules.push({
                 id: 'hide-closed-stories',
-                category: 'taskboard',
+                filter: 'taskboard',
                 menuItem: 'Hide closed stories',
                 onActivate: function () {
                     $('body').addClass(this.id);
@@ -53,7 +53,7 @@
             // Hide impediments
             modules.push({
                 id: 'hide-impediments',
-                category: 'taskboard',
+                filter: 'taskboard',
                 menuItem: 'Hide impediments',
                 onActivate: function () {
                     $('body').addClass(this.id);
@@ -67,7 +67,7 @@
             // Show "REVIEW ME!" in non-assigned resolved tasks
             modules.push({
                 id: 'show-review-reminder',
-                category: 'taskboard',
+                filter: 'taskboard',
                 menuItem: 'Show review reminder',
                 onActivate: function () {
                     $('body').addClass(this.id);
@@ -81,7 +81,6 @@
             // Keep alive, keep alive
             modules.push({
                 id: 'keep-alive',
-                category: 'general',
                 menuItem: 'Keep session alive',
                 onActivate: function () {
                     var xhReq = new XMLHttpRequest();
@@ -98,7 +97,7 @@
             // Team bobble story colors
             modules.push({
                 id: 'team-bobbel-colors',
-                category: 'taskboard',
+                filter: 'taskboard',
                 menuItem: 'Bobbel colors',
                 onActivate: function () {
                     MP.helper.addStoryClasses();
@@ -112,7 +111,7 @@
             // Hide stories tagged for Team Left Bobbel
             modules.push({
                 id: 'hide-left-bobbel',
-                category: 'taskboard',
+                filter: 'taskboard',
                 dependencies: ['team-bobbel-colors'],
                 menuItem: 'Hide left bobbel stories',
                 onActivate: function () {
@@ -126,7 +125,7 @@
             // Hide stories tagged for Team Right Bobbel
             modules.push({
                 id: 'hide-right-bobbel',
-                category: 'taskboard',
+                filter: 'taskboard',
                 menuItem: 'Hide right bobbel stories',
                 onActivate: function () {
                     MP.helper.addStoryClasses();
@@ -140,7 +139,7 @@
             // Hide stories tagged for Team Middle Bobbel
             modules.push({
                 id: 'hide-middle-bobbel',
-                category: 'taskboard',
+                filter: 'taskboard',
                 menuItem: 'Hide middle bobbel stories',
                 onActivate: function () {
                     MP.helper.addStoryClasses();
@@ -154,7 +153,7 @@
             // Hide stories not tagged for any team
             modules.push({
                 id: 'hide-no-bobbel',
-                category: 'taskboard',
+                filter: 'taskboard',
                 menuItem: 'Hide non-bobbel stories',
                 onActivate: function () {
                     MP.helper.addStoryClasses();
@@ -181,7 +180,7 @@
             // Restrict 'Story' column
             modules.push({
                 id: 'narrow-story',
-                category: 'taskboard',
+                filter: 'taskboard',
                 menuItem: 'Restrict "Story" width',
                 onActivate: function () {
                     $('body').addClass(this.id);
@@ -194,7 +193,7 @@
             // Restrict 'On Hold' column
             modules.push({
                 id: 'narrow-on-hold',
-                category: 'taskboard',
+                filter: 'taskboard',
                 menuItem: 'Restrict "On Hold" width',
                 onActivate: function () {
                     $('body').addClass(this.id);
@@ -207,7 +206,7 @@
             // Restrict 'Rejected' column
             modules.push({
                 id: 'narrow-rejected',
-                category: 'taskboard',
+                filter: 'taskboard',
                 menuItem: 'Restrict "Rejected" width',
                 onActivate: function () {
                     $('body').addClass(this.id);
@@ -220,7 +219,7 @@
             // Restrict 'Closed' column
             modules.push({
                 id: 'narrow-closed',
-                category: 'taskboard',
+                filter: 'taskboard',
                 menuItem: 'Restrict "Closed" width',
                 onActivate: function () {
                     $('body').addClass(this.id);
@@ -233,7 +232,7 @@
             // Readable issues
             modules.push({
                 id: 'readable-issues',
-                category: 'taskboard',
+                filter: 'taskboard',
                 menuItem: 'Make issues readable',
                 onActivate: function () {
                     $('body').addClass(this.id);
@@ -246,7 +245,7 @@
             // Sliding header by Thomas Rosenau
             modules.push({
                 id: 'clone-header',
-                category: 'taskboard',
+                filter: 'taskboard',
                 menuItem: 'Keep header visible',
                 header: $('#board_header'),
                 onActivate: function () {
@@ -273,7 +272,7 @@
             // Auto-assign
             modules.push({
                 id: 'auto-assign',
-                category: 'taskboard',
+                filter: 'taskboard',
                 menuItem: '(Un-)Assign automatically',
                 onActivate: function () {
                     RB.Task.origSaveDirectives = RB.Task.saveDirectives;
@@ -407,7 +406,10 @@
 
             $.each(this.modules, function (index, module) {
                 if (settings[module.id]) {
-                    module.onActivate();
+                    if (!module.filter || location.href.indexOf(module.filter) !== -1) {
+                        module.onActivate();
+                    }
+
                 };
             });
         },
@@ -427,8 +429,10 @@
                 checkbox.prop('checked', this.settings[setting]);
                 checkbox.click((function () {
                     var checked = checkbox.prop('checked');
-                    $('body')[checked ? 'addClass' : 'removeClass'](setting);
-                    module[checked ? 'onActivate' : 'onDeactivate']();
+                    if (!module.filter || location.href.indexOf(module.filter) !== -1) {
+                        $('body')[checked ? 'addClass' : 'removeClass'](setting);
+                        module[checked ? 'onActivate' : 'onDeactivate']();
+                    }
                     this.settings[setting] = checked;
                     this.saveSettings();
                 }).bind(this));
