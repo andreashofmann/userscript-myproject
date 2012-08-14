@@ -301,6 +301,36 @@
                 }
             });
 
+            modules.push({
+                id: 'taskboard-shortcuts',
+                menuItem: 'Taskboard shortcuts',
+                onActivate: function () {
+                    var sidebar = $('#menu-sidebar'),
+                        currentTaskboardLink = $('<a>Current Sprint</a>'),
+                        previousTaskboardLink = $('<a>Previous Sprint</a>'),
+                        quickLinkBox = $('<div class="sb-quicklinks"><h2>Task Boards</h2></div>');
+
+                    currentTaskboardLink.prop('href', MP.helper.getCurrentSprintTaskboard());
+                    currentTaskboardLink.appendTo(quickLinkBox);
+                    previousTaskboardLink.prop('href', MP.helper.getPreviousSprintTaskboard());
+                    previousTaskboardLink.appendTo(quickLinkBox);
+                    quickLinkBox.prependTo(sidebar);
+
+                    if (location.href === MP.helper.getCurrentSprintTaskboard()) {
+                        currentTaskboardLink.addClass('selected');
+                        $('.backlogs').removeClass('selected');
+                    }
+
+                    if (location.href === MP.helper.getPreviousSprintTaskboard()) {
+                        previousTaskboardLink.addClass('selected');
+                        $('.backlogs').removeClass('selected');
+                    }
+                },
+                onDeactivate: function () {
+                    $('.sb-quicklinks').remove();
+                }
+            });
+
             this.modules = modules;
         },
 
@@ -395,6 +425,12 @@
             getUserColor: function () {
                 this.userColor = this.userColor || $('.template [value="' + this.getUserId() + '"]').attr('color');
                 return this.userColor;
+            },
+            getCurrentSprintTaskboard: function () {
+                return 'https://myproject.telekom.de/pi/rb/taskboards/1569?project_id=640';
+            },
+            getPreviousSprintTaskboard: function () {
+                return 'https://myproject.telekom.de/pi/rb/taskboards/1567?project_id=640';
             }
         }
 

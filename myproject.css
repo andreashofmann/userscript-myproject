@@ -136,3 +136,21 @@
     font-size: 10px;
 }
 
+.sb-quicklinks {
+    background-color: #E9E9E9;
+    padding: 10px;
+}
+
+.sb-quicklinks a {
+    display: block;
+    padding: 0 0 0 20px;
+}
+
+.sb-quicklinks a:hover,
+.sb-quicklinks a.selected {
+    color: #fff !important;
+    background-color: #E20074;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px
+}
