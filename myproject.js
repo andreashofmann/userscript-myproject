@@ -86,8 +86,8 @@
                     var xhReq = new XMLHttpRequest();
                     this.interval = setInterval(function () {
                         if (document.hasFocus()) {
-                            xhReq.open('GET', 'https://myproject.telekom.de/pi/rb/taskboards/1495?project_id=640', true);
-                            xhReq.send(null);
+                        xhReq.open('GET', 'https://myproject.telekom.de/pi/rb/taskboards/1495?project_id=640', true);
+                        xhReq.send(null);
                         } else {
                             window.location.reload();
                         }
@@ -382,6 +382,26 @@
                                 task.saveEdits();
                                 task.saveDirectives = task.tempSaveDirectives;
                                 delete task.tempSaveDirectives;
+                            }
+                        }, {
+                            label: 'Commit message',
+                            action: function (event) {
+                                var target = $(event.target),
+                                    issue,
+                                    subject,
+                                    message;
+
+                                if (!target.hasClass('task')) {
+                                    target = target.parent('.task');
+                                }
+
+
+                                issue = target.find('.id a').text();
+                                subject = target.find('.subject').text();
+                                message = 'Since I\'m not in the mood for Flash hacks, you\'ll have to copy that yourself. Sorry.';
+
+                                window.prompt(message, issue + ': ' + subject);
+
                             }
                         }]
                     });
