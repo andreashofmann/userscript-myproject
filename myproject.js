@@ -85,9 +85,13 @@
                 onActivate: function () {
                     var xhReq = new XMLHttpRequest();
                     this.interval = setInterval(function () {
-                        xhReq.open('GET', 'https://myproject.telekom.de/pi/rb/taskboards/1495?project_id=640', true);
-                        xhReq.send(null);
-                    }, 900000);
+                        if (document.hasFocus()) {
+                            xhReq.open('GET', 'https://myproject.telekom.de/pi/rb/taskboards/1495?project_id=640', true);
+                            xhReq.send(null);
+                        } else {
+                            window.location.reload();
+                        }
+                    }, 300000);
                 },
                 onDeactivate: function () {
                     clearInterval(this.interval);
